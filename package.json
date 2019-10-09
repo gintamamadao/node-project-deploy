@@ -20,8 +20,10 @@
     },
     "homepage": "https://github.com/gintamamadao/node-project-deploy#readme",
     "dependencies": {
+        "schema-verify": "^1.2.8",
         "shipit-cli": "^5.1.0",
-        "shipit-deploy": "^5.1.0"
+        "shipit-deploy": "^5.1.0",
+        "shipit-utils": "^1.4.1"
     },
     "devDependencies": {
         "@babel/core": "^7.4.5",
