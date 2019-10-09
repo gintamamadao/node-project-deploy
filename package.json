@@ -6,6 +6,9 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
+    "bin": {
+        "shipit": "./src/cli.js"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/gintamamadao/node-project-deploy.git"
@@ -19,5 +22,12 @@
     "dependencies": {
         "shipit-cli": "^5.1.0",
         "shipit-deploy": "^5.1.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.4.5",
+        "@babel/preset-env": "^7.4.5",
+        "rollup": "^1.14.3",
+        "rollup-plugin-babel": "^4.3.2",
+        "rollup-plugin-commonjs": "^10.0.0"
     }
 }
