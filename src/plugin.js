@@ -13,7 +13,7 @@ const PluginSchema = new Schema({
         },
         {
             type: String,
-            index: "afterEvent",
+            index: "hookEvent",
             required: true,
             enum: EVENTS
         },
@@ -36,8 +36,23 @@ function install(shipit) {
         const name = plugin.name;
         const afterEvent = plugin.afterEvent;
         const task = plugin.task;
+        const taskFn = async function(shipit) {
+            const overName = `${name} Done`;
+            const config = Type.object.safe(shipit.config);
+            const remoteFn = async function(command) {
+                await shipit.remote(command);
+            };
+            const localFn = async function(command) {
+                await shipit.local(command);
+            };
+            const emitFn = async function(eventName) {
+                await shipit.emit(eventName);
+            };
+            await task(config, remoteFn, localFn, emitFn);
+            shipit.emit(overName);
+        };
         shipit.on(EVENTS.fetched, function() {
-            utils.registerTask(shipit, name, task);
+            utils.registerTask(shipit, name, taskFn);
             shipit.on(afterEvent, function() {
                 shipit.start(name);
             });

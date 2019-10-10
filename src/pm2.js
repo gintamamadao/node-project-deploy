@@ -4,7 +4,7 @@ const { Type } = require("schema-verify");
 const { EVENTS } = require("./constant");
 
 const START_EVENT = "pm2:start";
-const OVER_EVENT = "pm2:started";
+const OVER_EVENT = "pm2:start Done";
 
 async function task(shipit) {
     const config = Type.object.safe(shipit.config);

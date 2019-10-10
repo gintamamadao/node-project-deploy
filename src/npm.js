@@ -6,7 +6,7 @@ const { EVENTS } = require("./constant");
 
 const NPM_TYPE = "npm";
 const START_EVENT = "npm:install";
-const OVER_EVENT = "npm:installed";
+const OVER_EVENT = "npm:install Done";
 
 async function task(shipit) {
     const config = Type.object.safe(shipit.config);

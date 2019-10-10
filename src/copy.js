@@ -20,7 +20,7 @@ const TaskInfoSchema = new Schema({
 });
 
 const START_EVENT = "file:copy";
-const OVER_EVENT = "file:copied";
+const OVER_EVENT = "file:copy Done";
 
 async function task(shipit) {
     const config = Type.object.safe(shipit.config);
