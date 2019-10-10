@@ -1,5 +1,4 @@
 const utils = require("shipit-utils");
-const path = require("path");
 const ErrMsg = require("./error");
 const { Type } = require("schema-verify");
 
