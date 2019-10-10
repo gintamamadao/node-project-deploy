@@ -48,7 +48,7 @@ async function task(shipit) {
 
 function install(shipit) {
     shipit = utils.getShipit(shipit);
-    shipit.on("published", function() {
+    shipit.on("fetched", function() {
         utils.registerTask(shipit, DIRECTIVE, task);
         shipit.on("deployed", function() {
             shipit.start(DIRECTIVE);
