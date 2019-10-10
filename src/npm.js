@@ -4,8 +4,8 @@ const ErrMsg = require("./error");
 const { Type } = require("schema-verify");
 
 const NPM_TYPE = "npm";
-const DIRECTIVE = "npm:install";
-const OVER_DIRECTIVE = "npm:installed";
+const EVENT = "npm:install";
+const OVER_EVENT = "npm:installed";
 
 async function task(shipit) {
     const config = Type.object.safe(shipit.config);
@@ -16,7 +16,7 @@ async function task(shipit) {
         throw new Error(ErrMsg.needWorkspace);
     }
     if (Type.object.isNot(npmInfo) && npmInfo !== true) {
-        shipit.emit(OVER_DIRECTIVE);
+        shipit.emit(OVER_EVENT);
         return;
     }
     npmInfo = Type.object.safe(npmInfo);
@@ -35,21 +35,21 @@ async function task(shipit) {
             cwd: workspace
         });
     }
-    shipit.emit(OVER_DIRECTIVE);
+    shipit.emit(OVER_EVENT);
 }
 
 function install(shipit) {
     shipit = utils.getShipit(shipit);
     shipit.on("fetched", function() {
-        utils.registerTask(shipit, DIRECTIVE, task);
+        utils.registerTask(shipit, EVENT, task);
         const config = Type.object.safe(shipit.config);
         const npmInfo = Type.object.safe(config.npmInfo);
         if (npmInfo.remote === true) {
             shipit.on("published", function() {
-                shipit.start(DIRECTIVE);
+                shipit.start(EVENT);
             });
         } else {
-            shipit.start(DIRECTIVE);
+            shipit.start(EVENT);
         }
     });
 }

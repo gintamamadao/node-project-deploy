@@ -18,8 +18,8 @@ const TaskInfoSchema = new Schema({
     ]
 });
 
-const DIRECTIVE = "file:copy";
-const OVER_DIRECTIVE = "file:copied";
+const EVENT = "file:copy";
+const OVER_EVENT = "file:copied";
 
 async function task(shipit) {
     const config = Type.object.safe(shipit.config);
@@ -43,15 +43,15 @@ async function task(shipit) {
         }
     }
     await shipit.remote(command);
-    shipit.emit(OVER_DIRECTIVE);
+    shipit.emit(OVER_EVENT);
 }
 
 function install(shipit) {
     shipit = utils.getShipit(shipit);
     shipit.on("fetched", function() {
-        utils.registerTask(shipit, DIRECTIVE, task);
+        utils.registerTask(shipit, EVENT, task);
         shipit.on("deployed", function() {
-            shipit.start(DIRECTIVE);
+            shipit.start(EVENT);
         });
     });
 }
