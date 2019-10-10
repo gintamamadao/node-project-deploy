@@ -10,6 +10,7 @@ async function task(shipit) {
     const config = Type.object.safe(shipit.config);
     const pm2Info = config.pm2;
     if (Type.object.isNot(pm2Info)) {
+        shipit.emit(OVER_DIRECTIVE);
         return;
     }
     const path = pm2Info.path;

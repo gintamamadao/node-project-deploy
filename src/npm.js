@@ -16,6 +16,7 @@ async function task(shipit) {
         throw new Error(ErrMsg.needWorkspace);
     }
     if (Type.object.isNot(npmInfo) && npmInfo !== true) {
+        shipit.emit(OVER_DIRECTIVE);
         return;
     }
     npmInfo = Type.object.safe(npmInfo);
