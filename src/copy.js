@@ -1,6 +1,5 @@
 const utils = require("shipit-utils");
-const ErrMsg = require("./error");
-const { EVENTS } = require("./constant");
+const { EVENTS, ERR_MSG } = require("./constant");
 const { Type, Schema } = require("schema-verify");
 
 const TaskInfoSchema = new Schema({
@@ -33,7 +32,7 @@ async function task(shipit) {
         : [];
     for (const info of copyInfo) {
         if (!TaskInfoSchema.verify(info)) {
-            throw new Error(ErrMsg.errorCopyInfo);
+            throw new Error(ERR_MSG.errorCopyInfo);
         }
         const from = info.from;
         const to = info.to;

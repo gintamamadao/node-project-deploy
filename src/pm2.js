@@ -1,7 +1,6 @@
 const utils = require("shipit-utils");
-const ErrMsg = require("./error");
 const { Type } = require("schema-verify");
-const { EVENTS } = require("./constant");
+const { EVENTS, ERR_MSG } = require("./constant");
 
 const START_EVENT = "pm2:start";
 const OVER_EVENT = "pm2:start Done";
@@ -18,7 +17,7 @@ async function task(shipit) {
     let name = pm2Info.name;
     name = Type.string.isNotEmpty(name) ? name : path;
     if (!Type.string.isNotEmpty(name)) {
-        throw new Error(ErrMsg.errorPm2Info);
+        throw new Error(ERR_MSG.errorPm2Info);
     }
     let command = `pm2 startOrRestart ${name}`;
     if (delThread === true) {

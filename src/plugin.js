@@ -1,7 +1,6 @@
 const utils = require("shipit-utils");
-const ErrMsg = require("./error");
 const { Type } = require("schema-verify");
-const { EVENTS } = require("./constant");
+const { EVENTS, ERR_MSG } = require("./constant");
 
 const PluginSchema = new Schema({
     type: Object,
@@ -38,7 +37,7 @@ function install(shipit) {
     const plugins = Type.array.safe(config.plugins);
     for (const plugin of plugins) {
         if (!PluginSchema.verify(plugin)) {
-            throw new Error(ErrMsg.errorPluginInfo);
+            throw new Error(ERR_MSG.errorPluginInfo);
         }
         const name = plugin.name;
         const afterEvent = plugin.afterEvent;
