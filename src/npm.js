@@ -1,6 +1,5 @@
 const utils = require("shipit-utils");
 const path = require("path");
-const ErrMsg = require("./error");
 const { Type } = require("schema-verify");
 const { EVENTS } = require("./constant");
 
@@ -13,9 +12,6 @@ async function task(shipit) {
     const workspace = config.workspace;
     const deployTo = config.deployTo;
     let npmInfo = config.npm;
-    if (!Type.string.isNotEmpty(workspace)) {
-        throw new Error(ErrMsg.needWorkspace);
-    }
     if (Type.object.isNot(npmInfo) && npmInfo !== true) {
         shipit.emit(OVER_EVENT);
         return;

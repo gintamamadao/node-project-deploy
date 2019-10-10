@@ -19,8 +19,15 @@ const PluginSchema = new Schema({
         },
         {
             type: Function,
-            index: "task",
-            required: true
+            index: "task"
+        },
+        {
+            type: String,
+            index: "command"
+        },
+        {
+            type: Boolean,
+            index: "remote"
         }
     ]
 });
@@ -36,19 +43,33 @@ function install(shipit) {
         const name = plugin.name;
         const afterEvent = plugin.afterEvent;
         const task = plugin.task;
+        const command = plugin.command;
+        const remote = plugin.remote;
         const taskFn = async function(shipit) {
             const overName = `${name} Done`;
             const config = Type.object.safe(shipit.config);
-            const remoteFn = async function(command) {
-                await shipit.remote(command);
-            };
-            const localFn = async function(command) {
-                await shipit.local(command);
-            };
-            const emitFn = async function(eventName) {
-                await shipit.emit(eventName);
-            };
-            await task(config, remoteFn, localFn, emitFn);
+            if (Type.function.is(task)) {
+                const remoteHandle = async function(commandStr) {
+                    await shipit.remote(commandStr);
+                };
+                const localHandle = async function(commandStr) {
+                    await shipit.local(commandStr);
+                };
+                const emitHandle = async function(eventName) {
+                    await shipit.emit(eventName);
+                };
+                await task(config, remoteHandle, localHandle, emitHandle);
+            }
+            if (Type.string.isNotEmpty(command)) {
+                const workspace = config.workspace;
+                if (remote === true) {
+                    await shipit.remote(command);
+                } else {
+                    await shipit.local(command, {
+                        cwd: workspace
+                    });
+                }
+            }
             shipit.emit(overName);
         };
         shipit.on(EVENTS.fetched, function() {
