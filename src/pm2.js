@@ -1,8 +1,9 @@
 const utils = require("shipit-utils");
 const ErrMsg = require("./error");
 const { Type } = require("schema-verify");
+const { EVENTS } = require("./constant");
 
-const EVENT = "pm2:start";
+const START_EVENT = "pm2:start";
 const OVER_EVENT = "pm2:started";
 
 async function task(shipit) {
@@ -29,10 +30,10 @@ async function task(shipit) {
 
 function install(shipit) {
     shipit = utils.getShipit(shipit);
-    shipit.on("fetched", function() {
-        utils.registerTask(shipit, EVENT, task);
-        shipit.on("deployed", function() {
-            shipit.start(EVENT);
+    shipit.on(EVENTS.fetched, function() {
+        utils.registerTask(shipit, START_EVENT, task);
+        shipit.on(EVENTS.published, function() {
+            shipit.start(START_EVENT);
         });
     });
 }

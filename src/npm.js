@@ -2,9 +2,10 @@ const utils = require("shipit-utils");
 const path = require("path");
 const ErrMsg = require("./error");
 const { Type } = require("schema-verify");
+const { EVENTS } = require("./constant");
 
 const NPM_TYPE = "npm";
-const EVENT = "npm:install";
+const START_EVENT = "npm:install";
 const OVER_EVENT = "npm:installed";
 
 async function task(shipit) {
@@ -40,16 +41,16 @@ async function task(shipit) {
 
 function install(shipit) {
     shipit = utils.getShipit(shipit);
-    shipit.on("fetched", function() {
-        utils.registerTask(shipit, EVENT, task);
+    shipit.on(EVENTS.fetched, function() {
+        utils.registerTask(shipit, START_EVENT, task);
         const config = Type.object.safe(shipit.config);
         const npmInfo = Type.object.safe(config.npmInfo);
         if (npmInfo.remote === true) {
-            shipit.on("published", function() {
-                shipit.start(EVENT);
+            shipit.on(EVENTS.published, function() {
+                shipit.start(START_EVENT);
             });
         } else {
-            shipit.start(EVENT);
+            shipit.start(START_EVENT);
         }
     });
 }

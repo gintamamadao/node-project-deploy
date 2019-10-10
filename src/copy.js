@@ -1,5 +1,6 @@
 const utils = require("shipit-utils");
 const ErrMsg = require("./error");
+const { EVENTS } = require("./constant");
 const { Type, Schema } = require("schema-verify");
 
 const TaskInfoSchema = new Schema({
@@ -18,7 +19,7 @@ const TaskInfoSchema = new Schema({
     ]
 });
 
-const EVENT = "file:copy";
+const START_EVENT = "file:copy";
 const OVER_EVENT = "file:copied";
 
 async function task(shipit) {
@@ -48,10 +49,10 @@ async function task(shipit) {
 
 function install(shipit) {
     shipit = utils.getShipit(shipit);
-    shipit.on("fetched", function() {
-        utils.registerTask(shipit, EVENT, task);
-        shipit.on("deployed", function() {
-            shipit.start(EVENT);
+    shipit.on(EVENTS.fetched, function() {
+        utils.registerTask(shipit, START_EVENT, task);
+        shipit.on(EVENTS.published, function() {
+            shipit.start(START_EVENT);
         });
     });
 }
