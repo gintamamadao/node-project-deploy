@@ -5,12 +5,18 @@ const copy = require("./copy");
 const pm2 = require("./pm2");
 const plugin = require("./plugin");
 const error = require("./error");
+const { Type } = require("schema-verify");
 
-async function projectDeploy(commenConf, envConf) {
+async function projectDeploy(defaultConf, envConf, branch) {
     const shipit = new Shipit({ environment: "special" });
     const runTasks = ["deploy"];
+    defaultConf = Type.object.safe(defaultConf);
+    envConf = Type.object.safe(envConf);
+    if (Type.string.isNotEmpty(branch)) {
+        envConf["branch"] = branch;
+    }
     const config = {
-        default: commenConf,
+        default: defaultConf,
         special: envConf
     };
 
