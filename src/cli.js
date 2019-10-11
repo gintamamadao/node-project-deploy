@@ -8,11 +8,11 @@ const Liftoff = require("liftoff");
 const minimist = require("minimist");
 const path = require("path");
 const fs = require("fs");
-const program = new commander.Command();
 const { Type } = require("schema-verify");
 const projectDeploy = require("./index");
 const { ERR_MSG } = require("./constant");
 
+const program = new commander.Command();
 program
     .version("v1.0")
     .allowUnknownOption()
