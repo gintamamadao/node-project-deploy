@@ -12,9 +12,9 @@ program
     .version("v1.0")
     .allowUnknownOption()
     .usage("<project> <env> <tag>")
-    .option("-p --project <project>", "project name")
-    .option("-e --env <env>", "environment")
-    .option("-t --tag <tag>", "git tag");
+    .option("--project <project>", "project name")
+    .option("--env <env>", "environment")
+    .option("--tag <tag>", "git tag");
 
 const processArgv = process.argv.slice(2);
 if (processArgv.length <= 0) {
