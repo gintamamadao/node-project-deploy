@@ -63,19 +63,19 @@ module.exports = {
 };
 ```
 
-**创建 tag 或者 分支**
+**创建 tag 或者分支**
 
-> 在 git 上创建一个发布的 tag 或者 分支
+> 在 git 上创建一个发布的 tag 或者分支，下面用 `release_version` 表示。
 
 **发布项目**
 
-> 最后在当前目录执行命令
+> 最后在当前目录执行命令。
 
 ```sh
-deploy-cli --project=backend  --env=testing  --tag=release_tag
+deploy-cli --project=backend  --env=testing  --tag=release_version
 ```
 
-> 以上操作的意思就是把 `backend` 项目的某个一个版本（`release_tag`）发布到 `testing` 环境中，执行命令后，cli 工具会加载 `./backend/testing/default.js` 和 `./backend/testing/testing.js` 这两个`js`模块文件的配置，根据最后所得的配置发布。
+> 以上操作的意思就是把 `backend` 项目的某个一个版本（`release_version`）发布到 `testing` 环境中，执行命令后，cli 工具会加载 `./backend/testing/default.js` 和 `./backend/testing/testing.js` 这两个`js`模块文件的配置，根据最后所得的配置发布。
 
 # 目录
 
@@ -86,6 +86,7 @@ deploy-cli --project=backend  --env=testing  --tag=release_tag
     -   [copyFile](#copyfile)
     -   [pm2](#pm2)
     -   [plugin](#plugin)
+-   [deploy-cli](#deploy-cli)
 
 # Options
 
@@ -205,6 +206,26 @@ deploy-cli --project=backend  --env=testing  --tag=release_tag
 **Type: `Boolean`**
 
 > 命令是在本地还是远程执行， 默认为 `false` , 表示在本地执行。
+
+# deploy-cli
+
+> 发布命令行工具。本项目与 `shipit-cli` 不同，`default` 配置和环境配置是分开文件存放，`deploy-cli` 作用是当前目录下根据项目名和环境名查找发布配置。
+
+## --project
+
+> 设置项目名，cli 工具会在当前目录下寻找命名为项目名的文件夹
+
+## --env
+
+> 设置环境名，cli 工具会在项目名文件夹下寻找命名为环境名的 `js` 文件和 `default.js`文件。
+
+## --tag
+
+> 设置要发布的版本，即在 git 上创建的 tag 或者分支。
+
+## --filePath
+
+> 不需要设置 `project` 和 `env`，直接指定一个 js 文件作为配置。
 
 # License (MIT)
 
