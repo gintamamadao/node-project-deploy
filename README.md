@@ -168,7 +168,7 @@ deploy-cli --project=backend  --env=testing  --tag=release_version
 
 **Type: `Object Array`**
 
-> 配置注册任务信息。用于便捷地注册任务。
+> 配置注册任务信息。用于便捷地注册任务。所有任务都会在插件 `shipit-deploy` 的 `fetched` 事件后注册。但触发任务的钩子函数要单独配置。
 
 > 下面用 `pluginItem` 表示数组的子项。
 
