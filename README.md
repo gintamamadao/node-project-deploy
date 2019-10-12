@@ -28,7 +28,16 @@ ln -s [node安装目录]/bin/deploy-cli /usr/local/bin/
 
 ## Usage
 
-> 首先在当前目录以项目的名字创建 backend 文件夹，再在 backend 文件夹下创建以下两个文件 default.js 和 以环境命令的 testing.js。default.js 内是通用配置，testing.js 内是要发布的环境配置。
+> 假如我们要发布项目 backend 到 testing 环境中，首先在当前目录以项目 backend 的名字创建文件夹，再在 backend 文件夹下创建以下两个文件 default.js 和 以环境命令的 testing.js。default.js 内是通用配置，testing.js 内是要发布的环境配置。
+
+> 即创建以下文件目录：
+
+```sh
+.
+└── backend
+    ├── default.js
+    └── testing.js
+```
 
 **`default.js` 文件例子**
 
