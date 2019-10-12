@@ -70,13 +70,13 @@ const onPrepare = function(liftEnv) {
         console.log(chalk.blue(`project: ${project}`));
     }
     if (Type.string.is(env)) {
-        console.log(chalk.blue(`project: ${env}`));
+        console.log(chalk.blue(`env: ${env}`));
     }
     if (Type.string.is(tag)) {
-        console.log(chalk.blue(`project: ${tag}`));
+        console.log(chalk.blue(`tag: ${tag}`));
     }
     if (Type.string.is(filePath)) {
-        console.log(chalk.blue(`project: ${filePath}`));
+        console.log(chalk.blue(`filePath: ${filePath}`));
     }
 
     cli.execute(liftEnv, onExecute);
