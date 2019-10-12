@@ -20,7 +20,7 @@ async function task(shipit) {
         throw new Error(ERR_MSG.errorPm2Info);
     }
     let command = `pm2 startOrRestart ${name}`;
-    if (delThread === true) {
+    if (delThread === true && Type.string.isNotEmpty(path)) {
         command = `pm2 delete ${name} && ${command}`;
     }
     await shipit.remote(command);

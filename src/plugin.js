@@ -40,7 +40,7 @@ function install(shipit) {
             throw new Error(ERR_MSG.errorPluginInfo);
         }
         const name = plugin.name;
-        const afterEvent = plugin.afterEvent;
+        const hookEvent = plugin.hookEvent;
         const task = plugin.task;
         const command = plugin.command;
         const remote = plugin.remote;
@@ -73,7 +73,7 @@ function install(shipit) {
         };
         shipit.on(EVENTS.fetched, function() {
             utils.registerTask(shipit, name, taskFn);
-            shipit.on(afterEvent, function() {
+            shipit.on(hookEvent, function() {
                 shipit.start(name);
             });
         });
