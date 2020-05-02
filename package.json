@@ -1,6 +1,6 @@
 {
     "name": "node-project-deploy",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "A Tool For Publishing Projects",
     "main": "./src/index.js",
     "scripts": {
